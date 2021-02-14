@@ -3,7 +3,7 @@
 import os
 import sys
 
-
+print("Hello World!")
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tweetme2.settings')
     try:
