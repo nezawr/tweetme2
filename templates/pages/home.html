@@ -4,7 +4,7 @@
 Welcome to tweetme2
 
 <div id='tweets'>
-    Loading... s
+    Loading... 
 </div>
 
 <script>
@@ -20,6 +20,29 @@ Welcome to tweetme2
     const url = '/tweets'
     const responseType = 'json'
 
+    function handleDidLike(tweet_id, currentCount){
+        console.log(tweet_id, currentCount)
+
+    }
+
+    function LikeBtn(tweet) {
+
+        return "<button class='btn btn-primary' onclick=handleDidLike(" +tweet.id + "," + tweet.likes + ")>" + tweet.likes +
+            " Like</button>"
+
+    }
+
+    function formatTweetElement(tweet){
+
+        var formattedTweet = "<div class='mb-4 tweet' id='tweet-" + tweet.id  
+        + "'><p>" + tweet.content + 
+            
+            "</p><div class='btn-group'>" + LikeBtn(tweet) +
+            
+            "</div></div>"
+        return formattedTweet
+    }
+    
     xhr.responseType = responseType
     xhr.open(method, url)
     xhr.onload = function () {
@@ -28,9 +51,15 @@ Welcome to tweetme2
         var finalTweetStr = ""
         var i;
         for (i=0; i<listedItems.length; i++){
-            
+
+            var tweetObj = listedItems[i]
+            var currentItem = formatTweetElement(tweetObj)
+                finalTweetStr += currentItem 
+       
         }
-        console.log(listedItems)
+
+        tweetsElement.innerHTML = finalTweetStr 
+        
     }
     xhr.send()
 
